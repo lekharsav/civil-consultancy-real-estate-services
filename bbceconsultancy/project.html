@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BBC Engineering - Professional Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <!-- NAV (updated to match index design) -->
+        <header class="site-nav" role="banner">
+            <div class="container nav-inner">
+                <!-- Left: Brand/Logo -->
+                <div style="display:flex;align-items:center;gap:14px">
+                    <div class="logo-mark" aria-hidden="true">BBC</div>
+                    <div class="brand">
+                        <div style="font-size:12px;color:#ffffff;margin-top:2px;font-weight:700">Engineering Consultantancy Pvt.Ltd.</div>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+              <nav class="primary" role="navigation" aria-label="primary">
+        <a href="index.html">Home</a>
+      <a href="project.html">Projects</a>
+      <a href="about_us.html">About us</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact_us.html">Contact Us</a>
+    </nav>
+
+                <!-- Right: CTA + Profile + Hamburger -->
+                <div class="nav-right">
+                    <!-- Desktop CTA Button -->
+                    <button class="btn-cta desktop-cta" onclick="document.getElementById('courses')?.scrollIntoView({behavior:'smooth'})">Browse Architecture</button>
+          
+                    <!-- Profile Button -->
+                    <button class="profile-btn" id="profileBtn" aria-label="Account">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 12c2.761 0 5-2.462 5-5.5S14.761 1 12 1 7 3.462 7 6.5 9.239 12 12 12Zm0 2c-4.418 0-8 2.239-8 5v2h16v-2c0-2.761-3.582-5-8-5Z"
+                                        fill="currentColor"/>
+                        </svg>
+                    </button>
+          
+                    <!-- Mobile Hamburger Menu -->
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+      
+            </div>
+             <div class="mobile-dropdown" id="mobileDropdown">
+                    <nav class="mobile-nav">
+                        <a href="index.html" class="mobile-nav-link">Home</a>
+                        <a href="project.html" class="mobile-nav-link">Courses</a>
+                        <a href="about_us.html" class="mobile-nav-link">about us</a>
+                        <a href="reviews.html" class="mobile-nav-link">Reviews</a>
+                        <a href="contact_us.html" class="mobile-nav-link">Contact Us</a>
+                        <button class="mobile-dropdown-cta" onclick="document.getElementById('courses')?.scrollIntoView({behavior:'smooth'})">Browse Architecture</button>
+                    </nav>
+                </div>
+        </header>
+
+    <!-- Courses Hero -->
+    <section class="courses-hero">
+        <div class="container">
+            <div class="hero-badge">Our Professional Services</div>
+<h1>Trusted <span class="highlight">Engineering & Valuation</span> Services</h1>
+<p>
+BBC Engineering Consultancy Pvt. Ltd. provides professional property valuation,
+engineering design, and site supervision services in compliance with
+Nepal Rastra Bank guidelines and local regulations.
+</p>
+
+            
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="number">15+</div>
+                    <div class="label">Years Experience</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">1000+</div>
+                    <div class="label">Valuation Reports</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">20+</div>
+                    <div class="label">IBank Clients</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="number">100%</div>
+                    <div class="label">NRB Compliance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Categories -->
+   <section class="courses-categories">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">Our Services</div>
+      <h2>Professional Engineering & Valuation Services</h2>
+      <p>
+        BBC Engineering Consultancy Pvt. Ltd. provides reliable property valuation,
+        engineering design, and site supervision services trusted by banks,
+        institutions, and individual clients across Nepal.
+      </p>
+    </div>
+
+    <!-- CATEGORY TABS -->
+    <div class="category-tabs">
+      <div class="category-tab active" data-category="all">All Services</div>
+      <div class="category-tab" data-category="valuation">Property Valuation</div>
+      <div class="category-tab" data-category="design">Design & Drawing</div>
+      <div class="category-tab" data-category="supervision">Site Supervision</div>
+      <div class="category-tab" data-category="consultancy">Civil Consultancy</div>
+      <div class="category-tab" data-category="special">Specialized Services</div>
+    </div>
+
+   <!-- SERVICES GRID -->
+<div class="course-grid">
+
+  <!-- ================= PROPERTY VALUATION ================= -->
+  <article class="course-card" data-cat="valuation">
+    <div class="course-thumb"><img src="aa.jpg" alt=""></div>
+    <h4 class="course-title">🏠 Residential & Commercial Property Valuation</h4>
+    <div class="course-meta">
+      <div style="color:#021428">
+        NRB-compliant valuation for houses, apartments, offices & complexes
+      </div>
+    </div>
+  </article>
+
+  <article class="course-card" data-cat="valuation">
+    <div class="course-thumb"><img src="ab.jpg" alt=""></div>
+    <h4 class="course-title">🌾 Land Valuation</h4>
+    <div class="course-meta">
+      <div style="color:#021428">
+        Market-based valuation for residential, commercial & agricultural land
+      </div>
+    </div>
+  </article>
+
+  <article class="course-card" data-cat="valuation">
+    <div class="course-thumb"><img src="ba.jpg" alt=""></div>
+    <h4 class="course-title">🏗 Under-Construction Property Valuation</h4>
+    <div class="course-meta">
+      <div style="color:#021428">
+        Stage-wise valuation for construction-linked bank loans
+      </div>
+    </div>
+  </article>
+
+  <article class="course-card" data-cat="valuation">
+    <div class="course-thumb"><img src="bb.jpg" alt=""></div>
+    <h4 class="course-title">🏦 Bank, Embassy & Legal Valuation</h4>
+    <div class="course-meta">
+      <div style="color:#021428">
+        Valuation for banks, embassies, family separation & legal purposes
+      </div>
+    </div>
+  </article>
+
+  <!-- ================= DESIGN & DRAWING ================= -->
+  <article class="course-card" data-cat="design">
+    <div class="course-thumb"><img src="ca.jpg" alt=""></div>
+    <h4 class="course-title">🏢 Architectural & Structural Design</h4>
+    <div class="course-meta">
+      <div style="color:#021428">
+        Complete design, drawings & approval documentation
+      </div>
+    </div>
+  </article>
+
+  <article class="course-card" data-cat="design">
+    <div class="course-thumb"><img src="ccd.jpg" alt=""></div>
+    <h4 class="course-title">🎥 Interior Design / 3D Image / 3D Animation</h4>
+    <div class="course-meta">
+      <div style="color:#021428">
+        Realistic visualization for residential & commercial projects
+      </div>
+    </div>
+  </article>
+
+  <article class="course-card" data-cat="design">
+    <div class="course-thumb"><img src="db.jpg" alt=""></div>
+    <h4 class="course-title">🏛 Specialized Building Design</h4>
+    <div class="course-meta">
+      <div style="color:#021428">
+        Hospital, hotel, restaurant, temple & energy-efficient buildings
+      </div>
+    </div>
+  </article>
+
+  <!-- ================= SITE SUPERVISION ================= -->
+  <article class="course-card" data-cat="supervision">
+    <div class="course-thumb"><img src="se.jpg" alt=""></div>
+    <h4 class="course-title">🏗 House & Building Construction Supervision</h4>
+    <div class="course-meta">
+      <div style="color:#021428">
+        Quality control, drawing compliance & progress monitoring
+      </div>
+    </div>
+  </article>
+
+  <article class="course-card" data-cat="supervision">
+    <div class="course-thumb"><img src="sa.jpg" alt=""></div>
+    <h4 class="course-title">🏗 Infrastructure Construction Supervision</h4>
+    <div class="course-meta">
+      <div style="color:#021428">
+        Supervision for roads, drainage & infrastructure projects
+      </div>
+    </div>
+  </article>
+
+  <!-- ================= CIVIL CONSULTANCY ================= -->
+  <article class="course-card" data-cat="consultancy">
+    <div class="course-thumb"><img src="cb.jpg" alt=""></div>
+    <h4 class="course-title">🧱 Civil Engineering Consultancy</h4>
+    <div class="course-meta">
+      <div style="color:#021428">
+        Technical consulting, feasibility & compliance support
+      </div>
+    </div>
+  </article>
+
+  <!-- ================= SPECIALIZED SERVICES ================= -->
+  <article class="course-card" data-cat="special">
+    <div class="course-thumb"><img src="da.jpg" alt=""></div>
+    <h4 class="course-title">🌿 Energy Efficient & Sustainable Design</h4>
+    <div class="course-meta">
+      <div style="color:#021428">
+        Eco-friendly and cost-efficient building solutions
+      </div>
+    </div>
+  </article>
+
+</div>
+
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination-container">
+      <div class="pagination">
+        <button class="pagination-btn prev-btn" disabled>
+          <i class="fas fa-chevron-left"></i> Previous
+        </button>
+
+        <div class="page-numbers"></div>
+
+        <button class="pagination-btn next-btn">
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <div class="page-info">
+        Showing <span class="current-range">1-8</span> of <span class="total-courses">0</span> services
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Course Highlights -->
+   <section class="course-highlights">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">Why Choose BBC</div>
+      <h2>Our Professional Advantage</h2>
+      <p>
+        Why banks, financial institutions, and individual clients across Nepal
+        trust BBC Engineering Consultancy Pvt. Ltd.
+      </p>
+    </div>
+
+    <div class="highlights-grid">
+      <div class="highlight-card">
+        <div class="highlight-icon">
+          <i class="fas fa-user-tie"></i>
+        </div>
+        <h3>Registered & Experienced Valuator</h3>
+        <p>
+          Valuation services provided by qualified professionals with extensive
+          experience in the Nepalese property and construction market.
+        </p>
+      </div>
+
+      <div class="highlight-card">
+        <div class="highlight-icon">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <h3>NRB & Bank Compliant Reports</h3>
+        <p>
+          All valuation reports strictly follow Nepal Rastra Bank (NRB)
+          guidelines and are accepted by banks and financial institutions.
+        </p>
+      </div>
+
+      <div class="highlight-card">
+        <div class="highlight-icon">
+          <i class="fas fa-briefcase"></i>
+        </div>
+        <h3>End-to-End Engineering Solutions</h3>
+        <p>
+          From property valuation and architectural design to site supervision
+          and documentation, we provide complete project support.
+        </p>
+      </div>
+
+      <div class="highlight-card">
+        <div class="highlight-icon">
+          <i class="fas fa-certificate"></i>
+        </div>
+        <h3>Fast Turnaround & Legal Reliability</h3>
+        <p>
+          Timely service delivery with accurate documentation suitable for
+          banking, legal, embassy, and official purposes.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- CTA Section -->
+    <section class="courses-cta">
+        <div class="container">
+           <h2>Need a Professional Valuation or Engineering Service?</h2>
+<p>
+Contact BBC Engineering Consultancy Pvt. Ltd. for accurate valuation,
+professional design, and reliable supervision services.
+</p>
+
+            
+            <div class="cta-buttons">
+                <button class="btn-primary" id="browseAllBtn">View All Services</button>
+                <button class="btn-outline" id="consultBtn">Request Valuation</button>
+            </div>
+        </div>
+    </section>
+        <!-- Footer -->
+        <footer>
+    <div class="container">
+        <div class="footer-content">
+            <!-- Left Column: Brand Info -->
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-mark">BBC</div>
+                    <h3>Engineering Consultantancy Pvt.Ltd</h3>
+                </div>
+<p class="footer-tagline">Trusted Engineering & Valuation Consultancy in Nepal</p>
+                <div class="footer-copyright">&copy; <strong>BBC</strong> — 2025 • All rights reserved</div>
+            </div>
+            
+            <!-- Right Column: Contact Info -->
+            <div class="footer-contact">
+                <h4>Contact Information</h4>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <p>Ward 5, Dhangadhi sub-metropolitan city</p>
+                        <p>Kailali, Sudurpaschim pradesh, Nepal</p>
+                        <p class="address-note">Near North Gate of Dhangadhi stadium</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <a href="mailto:bhandari.krishna01@gmail.com">bhandari.krishna01@gmail.com</a>
+                    </div>
+                </div> 
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <a href="tel:+9779858422178">+977 9858422178</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Social Media Column -->
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon facebook">f</a>
+                    <a href="#" class="social-icon twitter">t</a>
+                    <a href="#" class="social-icon instagram">ig</a>
+                    <a href="#" class="social-icon linkedin">in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+        <!-- JavaScript -->
+        <script src="js/courses.js"></script>
+        <script>
+        // Mobile Dropdown & Auth overlay (matches index behavior)
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileDropdown = document.getElementById('mobileDropdown');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const profileBtn = document.getElementById('profileBtn');
+            const authOverlay = document.getElementById('authOverlay');
+
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                    mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+                    mobileDropdown.classList.toggle('active');
+                });
+            }
+
+            // Close dropdown when clicking on links
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileDropdown.classList.remove('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // Profile button opens auth overlay
+            if (profileBtn && authOverlay) profileBtn.addEventListener('click', () => authOverlay.classList.add('active'));
+
+            // Close overlay when clicking outside
+            if (authOverlay) {
+                authOverlay.addEventListener('click', (e) => {
+                    if (e.target === authOverlay) authOverlay.classList.remove('active');
+                });
+            }
+
+            // Close dropdown on escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (mobileDropdown && mobileDropdown.classList.contains('active')) {
+                        mobileDropdown.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                    if (authOverlay && authOverlay.classList.contains('active')) authOverlay.classList.remove('active');
+                }
+            });
+        });
+
+
+        const tabs = document.querySelectorAll('.category-tab');
+const courses = document.querySelectorAll('.course-card');
+
+let currentPage = 1;
+let activeCategory = 'all';
+
+function getItemsPerPage() {
+  return window.innerWidth <= 768 ? 4 : 8;
+}
+
+function getFilteredCards() {
+  return Array.from(courses).filter(card =>
+    activeCategory === 'all' || card.dataset.cat === activeCategory
+  );
+}
+
+function render() {
+  const perPage = getItemsPerPage();
+  const filtered = getFilteredCards();
+  const totalPages = Math.ceil(filtered.length / perPage) || 1;
+
+  courses.forEach(card => (card.style.display = 'none'));
+
+  filtered.forEach((card, index) => {
+    if (
+      index >= (currentPage - 1) * perPage &&
+      index < currentPage * perPage
+    ) {
+      card.style.display = 'block';
+    }
+  });
+
+  document.querySelector('.prev-btn').disabled = currentPage === 1;
+  document.querySelector('.next-btn').disabled = currentPage === totalPages;
+}
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    activeCategory = tab.dataset.category;
+    currentPage = 1;
+    render();
+  });
+});
+
+document.querySelector('.prev-btn').addEventListener('click', () => {
+  if (currentPage > 1) {
+    currentPage--;
+    render();
+  }
+});
+
+document.querySelector('.next-btn').addEventListener('click', () => {
+  const total = Math.ceil(getFilteredCards().length / getItemsPerPage());
+  if (currentPage < total) {
+    currentPage++;
+    render();
+  }
+});
+
+window.addEventListener('resize', () => {
+  currentPage = 1;
+  render();
+});
+
+render();
+
+        </script>
+</body>
+</html>

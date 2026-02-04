@@ -1,0 +1,932 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reviews — BBC Engineering Consultantancy Pvt.Ltd</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Global CSS (same as index) -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* =============================
+       REVIEWS PAGE – UNIQUE STYLES
+       ============================= */
+    .toppers-hero h1 { font-family: Poppins, sans-serif; font-weight: 700; }
+
+    /* Controls */
+    .reviews-controls {
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:space-between;
+      margin:28px 0 8px;
+      flex-wrap:wrap;
+    }
+    .reviews-search {
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex:1 1 360px;
+    }
+    .reviews-search input, .reviews-search select {
+      min-width: 180px;
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(2,20,40,.08);
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(2,8,20,.03);
+      font-weight:700;
+    }
+
+    .reviews-actions { display:flex; gap:10px; align-items:center; }
+
+    /* Rating chips */
+    .rating-chips { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+    .rating-chip {
+      padding:8px 12px;
+      border-radius: 999px;
+      background: rgba(2,20,40,.04);
+      cursor:pointer;
+      font-weight:700;
+      color: #013a5a;
+      border:1px solid rgba(2,20,40,.04);
+      transition: all .18s ease;
+    }
+    .rating-chip.active {
+      background: var(--cta);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,212,255,.12);
+    }
+
+    /* Reviews grid */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+      margin-top: 18px;
+    }
+
+    .review-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(2,8,20,.08);
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      transition: transform .18s ease, box-shadow .18s ease;
+      border:1px solid rgba(2,20,40,.02);
+      min-height: 110px;
+    }
+    .review-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(2,8,20,.12);
+    }
+    .review-avatar {
+      width:74px;
+      height:74px;
+      border-radius:50%;
+      overflow:hidden;
+      flex:0 0 74px;
+      border:4px solid var(--accent-1);
+      background:#eee;
+    }
+    .review-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
+
+    .review-body { flex:1; }
+    .review-name { font-weight:800; margin-bottom:4px; color: #021428; }
+    .review-meta { color: #6c757d; font-size:13px; margin-bottom:8px; display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .review-text {
+      color: #374151;
+      font-size:15px;
+      line-height:1.5;
+      max-height:3.6em; /* approx 2 lines */
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .review-actions { margin-top:10px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    .btn-inline {
+      background: transparent;
+      border: 1px solid rgba(2,20,40,.06);
+      padding:6px 10px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+    }
+
+    /* Stars */
+    .stars { display:inline-flex; gap:4px; vertical-align:middle; color:#f6a623; }
+    .star { width:18px; height:18px; display:inline-block; }
+
+    .no-results { text-align:center; padding:40px; color:#6c757d; }
+
+    /* Modal top image - fixed to avoid chopping heads */
+    .review-modal-top {
+      height:260px; overflow:hidden; border-top-left-radius: .5rem; border-top-right-radius: .5rem;
+      background: #000;
+      display:flex;
+      align-items:center; /* helps center portrait images vertically if contain used */
+      justify-content:center;
+    }
+    .review-modal-top img {
+      width:100%;
+      height:100%;
+      object-fit: contain;       /* no cropping */
+      object-position: center top; /* keep faces visible */
+      display:block;
+      background:#000;
+    }
+
+    /* Pagination */
+    .reviews-pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 28px 0 40px;
+      flex-wrap: wrap;
+    }
+    .reviews-pagination button {
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(2,20,40,.15);
+      background: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .reviews-pagination button.active {
+      background: var(--cta);
+      color: #fff;
+      border-color: var(--cta);
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 768px) {
+      .reviews-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .review-card { flex-direction: row; align-items:flex-start; padding:14px; min-height: 96px; }
+      .review-avatar { width:60px; height:60px; flex: 0 0 60px; border-width:3px; }
+      .review-text { font-size: 14px; max-height: 3.8em; }
+      .reviews-controls { gap:10px; align-items:flex-start; }
+      .reviews-pagination button { padding: 10px 16px; font-size: 14px; }
+    }
+
+    @media (max-width: 420px) {
+      .toppers-hero { padding: 50px 12px; margin-top: 20px; }
+      .toppers-hero h1 { font-size: 24px; }
+      .reviews-search input { min-width: 140px; }
+      .reviews-actions { gap:8px; }
+    }
+
+    /* small visual polish for helpful button when used */
+    .helpful[disabled] { opacity: 0.7; cursor: default; }
+
+    /* Write-review form tweaks */
+    .form-row { display:flex; gap:12px; flex-wrap:wrap; }
+    .form-row > * { flex: 1 1 200px; }
+    .rating-select { width:110px; }
+    .file-preview { width:60px; height:60px; border-radius:50%; overflow:hidden; border:3px solid var(--accent-1); background:#f2f4f7; display:inline-block; vertical-align:middle; }
+    .file-preview img { width:100%; height:100%; object-fit:cover; display:block; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR (COPIED FROM INDEX – UNCHANGED) -->
+  <header class="site-nav" role="banner">
+  <div class="container nav-inner">
+    <!-- Left: Brand/Logo -->
+    <div style="display:flex;align-items:center;gap:14px">
+      <div class="logo-mark" aria-hidden="true">BBC</div>
+      <div class="brand">
+        <div style="font-size:12px;color:#ffffff;margin-top:2px;font-weight:700">Engineering Consultantcy Pvt.Ltd.</div>
+      </div>
+    </div>
+
+    <!-- Desktop Navigation -->
+ <nav class="primary" role="navigation" aria-label="primary">
+     <a href="index.html">Home</a>
+      <a href="project.html">Projects</a>
+      <a href="about_us.html">About us</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact_us.html">Contact Us</a>
+    </nav>
+
+    <!-- Right: CTA + Profile + Hamburger -->
+    <div class="nav-right">
+      <!-- Desktop CTA Button -->
+      <button class="btn-cta desktop-cta" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Browse Architecture</button>
+      
+      <!-- Profile Button -->
+      <button class="profile-btn" id="profileBtn" aria-label="Account">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M12 12c2.761 0 5-2.462 5-5.5S14.761 1 12 1 7 3.462 7 6.5 9.239 12 12 12Zm0 2c-4.418 0-8 2.239-8 5v2h16v-2c0-2.761-3.582-5-8-5Z"
+                fill="currentColor"/>
+        </svg>
+      </button>
+      
+      <!-- Mobile Hamburger Menu -->
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+   <div class="mobile-dropdown" id="mobileDropdown">
+        <nav class="mobile-nav">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+        <a href="project.html" class="mobile-nav-link">Projects</a>
+        <a href="about_us.html" class="mobile-nav-link">about us</a>
+       <a href="reviews.html" class="mobile-nav-link">Reviews</a>
+        <a href="contact_us.html" class="mobile-nav-link">Contact Us</a>
+        <button class="mobile-dropdown-cta" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Browse Architecture</button>
+      </nav>
+    </div>
+</header>
+
+<!-- MAIN -->
+<main class="container">
+
+  <!-- HERO BANNER -->
+  <section class="toppers-hero">
+    <div class="badge" style="background:#fff;color:#021428;font-weight:800">Reviews</div>
+    <h1 class="mt-3">What our students & clients say</h1>
+    <p>Verified testimonials and course reviews from past learners — read honest feedback about our programs and mentorship.</p>
+  </section>
+
+  <!-- AUTH OVERLAY (UNCHANGED) -->
+  <div class="auth-overlay" id="authOverlay" style="display:none;align-items:center;justify-content:center;">
+    <div class="auth-card" role="dialog" aria-modal="true" style="background:#fff;padding:28px;border-radius:14px;max-width:360px;width:92%;">
+      <h3>Account Access</h3>
+      <p>Login or create a new account to continue</p>
+      <button class="auth-main login">Login</button>
+      <button class="auth-main signup">Sign Up</button>
+      <div class="divider"><span>or continue with</span></div>
+      <a href="#" class="forgot">Forgot password?</a>
+    </div>
+  </div>
+
+  <!-- Controls: search, sort, rating filter -->
+  <div class="reviews-controls" style="max-width:1200px;margin:32px auto 0;">
+    <div style="flex:1 1 0;">
+      <div class="reviews-search">
+        <input id="reviewSearch" type="search" placeholder="Search reviews — reviewer, course, or keywords" aria-label="Search reviews">
+        <select id="sortSelect" aria-label="Sort reviews" title="Sort reviews">
+          <option value="latest">Newest</option>
+          <option value="highest">Highest rating</option>
+          <option value="lowest">Lowest rating</option>
+        </select>
+      </div>
+      <div class="rating-chips mt-2" id="ratingChips" role="tablist" aria-label="Filter by rating">
+        <div class="rating-chip active" data-rating="all" role="tab">All</div>
+        <div class="rating-chip" data-rating="5" role="tab">5★</div>
+        <div class="rating-chip" data-rating="4" role="tab">4★+</div>
+        <div class="rating-chip" data-rating="3" role="tab">3★+</div>
+      </div>
+    </div>
+    <div class="reviews-actions">
+      <button id="writeReviewBtn" class="btn-inline" title="Add a review">Write a review</button>
+      <!-- Export removed as requested -->
+    </div>
+  </div>
+
+  <!-- REVIEWS GRID -->
+  <section style="max-width:1200px;margin:18px auto;">
+    <div class="reviews-grid" id="reviewsGrid">
+      <!-- 8 sample review cards (client can replace or generate server-side) -->
+      <article class="review-card" data-name="Sandeep Kumar" data-role="Student — Building Architectural Design" data-rating="5" data-date="2025-11-02" data-img="top1.webp" data-text="BBC’s course and mentor support transformed my approach. Timed mocks and doubt sessions prepared me for the real exam. Highly recommended.">
+        <div class="review-avatar"><img src="top1.webp" alt="Sandeep"></div>
+        <div class="review-body">
+          <div class="review-name">Sandeep Kumar</div>
+          <div class="review-meta"><span class="stars" aria-hidden="true"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span><span> • </span><small>Building Architectural Design</small><span> • </span><small>Nov 2, 2025</small></div>
+          <div class="review-text">BBC’s course and mentor support transformed my approach. Timed mocks and doubt sessions prepared me for the real exam. Highly recommended.</div>
+          <div class="review-actions">
+            <button class="btn-inline read-more" data-bs-toggle="modal" data-bs-target="#reviewModal">Read more</button>
+            <button class="btn-inline helpful">Helpful</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card" data-name="Nisha Sharma" data-role="Student — Quantity Survey" data-rating="4" data-date="2025-09-12" data-img="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" data-text="Good structure and mock analytics. Mentors were responsive; would like slightly more real-world case studies.">
+        <div class="review-avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" alt="Nisha"></div>
+        <div class="review-body">
+          <div class="review-name">Nisha Sharma</div>
+          <div class="review-meta"><span class="stars" aria-hidden="true"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">☆</span></span><span> • </span><small>Quantity Survey</small><span> • </span><small>Sep 12, 2025</small></div>
+          <div class="review-text">Good structure and mock analytics. Mentors were responsive; would like slightly more real-world case studies.</div>
+          <div class="review-actions">
+            <button class="btn-inline read-more" data-bs-toggle="modal" data-bs-target="#reviewModal">Read more</button>
+            <button class="btn-inline helpful">Helpful</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card" data-name="Prakash Bhandari" data-role="Client — Property Valuation" data-rating="5" data-date="2025-06-20" data-img="top3.webp" data-text="Professional team and practical approach. Delivered on time and supported after the course.">
+        <div class="review-avatar"><img src="top3.webp" alt="Prakash"></div>
+        <div class="review-body">
+          <div class="review-name">Prakash Bhandari</div>
+          <div class="review-meta"><span class="stars" aria-hidden="true"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span><span> • </span><small>Property Valuation</small><span> • </span><small>Jun 20, 2025</small></div>
+          <div class="review-text">Professional team and practical approach. Delivered on time and supported after the course.</div>
+          <div class="review-actions">
+            <button class="btn-inline read-more" data-bs-toggle="modal" data-bs-target="#reviewModal">Read more</button>
+            <button class="btn-inline helpful">Helpful</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card" data-name="Ramesh Thapa" data-role="Student — Interior Design" data-rating="5" data-date="2025-05-11" data-img="top4.webp" data-text="Excellent course material and hands-on sessions. Projects were realistic and mentors provided personal feedback.">
+        <div class="review-avatar"><img src="top4.webp" alt="Ramesh"></div>
+        <div class="review-body">
+          <div class="review-name">Ramesh Thapa</div>
+          <div class="review-meta"><span class="stars" aria-hidden="true"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span><span> • </span><small>Interior Design</small><span> • </span><small>May 11, 2025</small></div>
+          <div class="review-text">Excellent course material and hands-on sessions. Projects were realistic and mentors provided personal feedback.</div>
+          <div class="review-actions">
+            <button class="btn-inline read-more" data-bs-toggle="modal" data-bs-target="#reviewModal">Read more</button>
+            <button class="btn-inline helpful">Helpful</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card" data-name="Asha Gurung" data-role="Student — Residential Valuation" data-rating="4" data-date="2025-04-02" data-img="top5.webp" data-text="Good value for money. Learned practical valuation techniques.">
+        <div class="review-avatar"><img src="top5.webp" alt="Asha"></div>
+        <div class="review-body">
+          <div class="review-name">Asha Gurung</div>
+          <div class="review-meta"><span class="stars" aria-hidden="true"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">☆</span></span><span> • </span><small>Residential Valuation</small><span> • </span><small>Apr 2, 2025</small></div>
+          <div class="review-text">Good value for money. Learned practical valuation techniques.</div>
+          <div class="review-actions">
+            <button class="btn-inline read-more" data-bs-toggle="modal" data-bs-target="#reviewModal">Read more</button>
+            <button class="btn-inline helpful">Helpful</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card" data-name="Bikram Rana" data-role="Client — Bank Valuation" data-rating="5" data-date="2024-12-12" data-img="top6.webp" data-text="Delivered a reliable valuation report used by the bank for loan processing.">
+        <div class="review-avatar"><img src="top6.webp" alt="Bikram"></div>
+        <div class="review-body">
+          <div class="review-name">Bikram Rana</div>
+          <div class="review-meta"><span class="stars" aria-hidden="true"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></span><span> • </span><small>Bank Valuation</small><span> • </span><small>Dec 12, 2024</small></div>
+          <div class="review-text">Delivered a reliable valuation report used by the bank for loan processing.</div>
+          <div class="review-actions">
+            <button class="btn-inline read-more" data-bs-toggle="modal" data-bs-target="#reviewModal">Read more</button>
+            <button class="btn-inline helpful">Helpful</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card" data-name="Maya KC" data-role="Student — Landscape Design" data-rating="4" data-date="2024-08-28" data-img="top7.webp" data-text="Professional faculty and clear learning path.">
+        <div class="review-avatar"><img src="top7.webp" alt="Maya"></div>
+        <div class="review-body">
+          <div class="review-name">Maya KC</div>
+          <div class="review-meta"><span class="stars" aria-hidden="true"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">☆</span></span><span> • </span><small>Landscape Design</small><span> • </span><small>Aug 28, 2024</small></div>
+          <div class="review-text">Professional faculty and clear learning path.</div>
+          <div class="review-actions">
+            <button class="btn-inline read-more" data-bs-toggle="modal" data-bs-target="#reviewModal">Read more</button>
+            <button class="btn-inline helpful">Helpful</button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div id="noResults" class="no-results" style="display:none;">No reviews found for your search.</div>
+
+    <!-- Pagination placeholder -->
+    <div class="reviews-pagination" id="reviewsPagination" aria-label="Reviews pagination"></div>
+  </section>
+
+  <!-- SUCCESS STRIP -->
+  <section class="success-strip" style="margin-top:28px;">
+    <h3>Why reviewers rate us highly</h3>
+    <div class="success-steps">
+      <div class="success-step"><span>📚</span>Focused Study Plan</div>
+      <div class="success-step"><span>🧠</span>Live Doubt Clearing</div>
+      <div class="success-step"><span>📊</span>Mock Test Analytics</div>
+      <div class="success-step"><span>🏆</span>Top Exam Performance</div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENT STATS & STRATEGIES (kept) -->
+  <section style="padding: 10px 24px; background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(37, 99, 235, 0.05) 100%); margin-top:28px;">
+    <div style="max-width: 1200px; margin: 0 auto;">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <h2 style="font-family: Poppins, sans-serif; font-size: 48px; color: #015383; margin: 0 0 16px; font-weight: 800;">Our Success Metrics</h2>
+        <p style="font-size: 18px; color: #666; max-width: 600px; margin: 0 auto;">Real results from students who transformed their careers</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 28px;">
+        <div style="background: white; padding: 40px 28px; border-radius: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 212, 255, 0.1);">
+          <div style="font-size: 48px; font-weight: 900; color: #00D4FF; margin-bottom: 12px;">98%</div>
+          <div style="font-size: 16px; font-weight: 700; color: #015383; text-transform: uppercase; letter-spacing: 0.5px;">Success Rate</div>
+        </div>
+        <div style="background: white; padding: 40px 28px; border-radius: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 212, 255, 0.1);">
+          <div style="font-size: 48px; font-weight: 900; color: #00D4FF; margin-bottom: 12px;">500+</div>
+          <div style="font-size: 16px; font-weight: 700; color: #015383; text-transform: uppercase; letter-spacing: 0.5px;">Top Achievers</div>
+        </div>
+        <div style="background: white; padding: 40px 28px; border-radius: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 212, 255, 0.1);">
+          <div style="font-size: 48px; font-weight: 900; color: #00D4FF; margin-bottom: 12px;">92%</div>
+          <div style="font-size: 16px; font-weight: 700; color: #015383; text-transform: uppercase; letter-spacing: 0.5px;">Avg Score</div>
+        </div>
+        <div style="background: white; padding: 40px 28px; border-radius: 16px; text-align: center; box-shadow: 0 8px 24px rgba(0, 212, 255, 0.1);">
+          <div style="font-size: 48px; font-weight: 900; color: #00D4FF; margin-bottom: 12px;">12 Weeks</div>
+          <div style="font-size: 16px; font-weight: 700; color: #015383; text-transform: uppercase; letter-spacing: 0.5px;">Avg Duration</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- REVIEW MODAL (read more) -->
+<div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="review-modal-top">
+        <img id="modalImg" src="top1.webp" alt="Reviewer image">
+      </div>
+      <div class="modal-body text-center">
+        <h4 id="modalName" style="font-weight:800;"></h4>
+        <div id="modalMeta" style="color:#6c757d;margin-bottom:10px;"></div>
+        <div id="modalRating" style="margin-bottom:12px;color:#f6a623;"></div>
+        <p id="modalText" style="color:#334155;"></p>
+        <div style="margin-top:12px;">
+          <button class="btn-inline" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WRITE REVIEW MODAL (new) -->
+<div class="modal fade" id="writeReviewModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Write a review</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="writeReviewForm" class="modal-body">
+        <div class="mb-2">
+          <label class="form-label">Your name</label>
+          <input type="text" id="rvName" class="form-control" required placeholder="Full name">
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Role / Course</label>
+          <input type="text" id="rvRole" class="form-control" placeholder="Student — Course / Client">
+        </div>
+        <div class="form-row mb-2">
+          <div>
+            <label class="form-label">Rating</label>
+            <select id="rvRating" class="form-select rating-select" required>
+              <option value="5">5 — Excellent</option>
+              <option value="4">4 — Very good</option>
+              <option value="3">3 — Good</option>
+              <option value="2">2 — Fair</option>
+              <option value="1">1 — Poor</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label">Image (optional)</label>
+            <input id="rvImage" type="file" accept="image/*" class="form-control" />
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Your review</label>
+          <textarea id="rvText" class="form-control" rows="4" required placeholder="Tell others about your experience"></textarea>
+        </div>
+
+        <div class="d-flex gap-2 justify-content-end mt-3">
+          <button type="button" class="btn-inline" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn-inline" id="submitReviewBtn">Submit review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER (UNCHANGED FROM INDEX) -->
+<footer>
+  <div class="container">
+      <div class="footer-content">
+          <!-- Left Column: Brand Info -->
+          <div class="footer-brand">
+              <div class="footer-logo">
+                  <div class="logo-mark">BBC</div>
+                  <h3>Engineering Consultantancy Pvt.Ltd</h3>
+              </div>
+              <p class="footer-tagline">Empowering learners with cutting-edge education</p>
+              <div class="footer-copyright">&copy; <strong>BBC</strong> — 2025 • All rights reserved</div>
+          </div>
+          
+          <!-- Right Column: Contact Info -->
+          <div class="footer-contact">
+              <h4>Contact Information</h4>
+              
+              <div class="contact-item">
+                  <div class="contact-icon">📍</div>
+                  <div class="contact-details">
+                      <p>Ward 5, Dhangadhi sub-metropolitan city</p>
+                      <p>Kailali, Sudurpaschim pradesh, Nepal</p>
+                      <p class="address-note">Near North Gate of Dhangadhi stadium</p>
+                  </div>
+              </div>
+              
+              <div class="contact-item">
+                  <div class="contact-icon">✉️</div>
+                  <div class="contact-details">
+                      <a href="mailto:bhandari.krishna01@gmail.com">bhandari.krishna01@gmail.com</a>
+                  </div>
+              </div> 
+              <div class="contact-item">
+                  <div class="contact-icon">📞</div>
+                  <div class="contact-details">
+                      <a href="tel:+9779858422178">+977 9858422178</a>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- Social Media Column -->
+          <div class="footer-social">
+              <h4>Follow Us</h4>
+              <div class="social-icons">
+                  <a href="#" class="social-icon facebook">f</a>
+                  <a href="#" class="social-icon twitter">t</a>
+                  <a href="#" class="social-icon instagram">ig</a>
+                  <a href="#" class="social-icon linkedin">in</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</footer>
+
+<!-- Scripts (same as index dependencies) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
+
+
+<script>
+/* Page-specific JS: search, filters, pagination (4 per page), modal population, and write-review handling */
+(function () {
+  const grid = document.getElementById('reviewsGrid');
+  const searchEl = document.getElementById('reviewSearch');
+  const sortEl = document.getElementById('sortSelect');
+  const chips = Array.from(document.querySelectorAll('.rating-chip'));
+  const noResults = document.getElementById('noResults');
+  const paginationEl = document.getElementById('reviewsPagination');
+  const REVIEWS_PER_PAGE = 4;
+  let currentPage = 1;
+
+  // Utility: get all review-card elements (live)
+  function allCards() {
+    return Array.from(grid.querySelectorAll('.review-card'));
+  }
+
+  // Render stars in-place (initial)
+  function renderStarsOnLoad() {
+    allCards().forEach(card => {
+      const starWrap = card.querySelector('.stars');
+      const rating = Math.round(Number(card.dataset.rating || 0));
+      if (starWrap) {
+        starWrap.innerHTML = '';
+        for (let i=1;i<=5;i++){
+          const s = document.createElement('span');
+          s.className = 'star';
+          s.textContent = i <= rating ? '★' : '☆';
+          starWrap.appendChild(s);
+        }
+      }
+    });
+  }
+
+  // Render arbitrary stars (for modal)
+  function renderStars(container, rating) {
+    container.innerHTML = '';
+    const n = Math.round(Number(rating));
+    for (let i=1;i<=5;i++){
+      const span = document.createElement('span');
+      span.className = 'star';
+      span.textContent = i <= n ? '★' : '☆';
+      container.appendChild(span);
+    }
+  }
+
+  // Apply filters + sorting; then render pagination
+  function applyFilters() {
+    const q = (searchEl.value || '').trim().toLowerCase();
+    const sortBy = sortEl.value;
+    const activeChip = document.querySelector('.rating-chip.active');
+    const ratingFilter = activeChip ? activeChip.dataset.rating : 'all';
+
+    // start from the static set in DOM (we assume initial static cards exist)
+    let cards = Array.from(document.querySelectorAll('.review-card'));
+
+    // filter by rating
+    if (ratingFilter && ratingFilter !== 'all') {
+      const min = Number(ratingFilter);
+      cards = cards.filter(c => Number(c.dataset.rating) >= min);
+    }
+
+    // filter by query
+    if (q) {
+      cards = cards.filter(c => {
+        return (
+          c.dataset.name.toLowerCase().includes(q) ||
+          (c.dataset.role || '').toLowerCase().includes(q) ||
+          (c.dataset.text || '').toLowerCase().includes(q)
+        );
+      });
+    }
+
+    // sort
+    cards.sort((a,b) => {
+      if (sortBy === 'latest') {
+        return new Date(b.dataset.date) - new Date(a.dataset.date);
+      } else if (sortBy === 'highest') {
+        return Number(b.dataset.rating) - Number(a.dataset.rating);
+      } else if (sortBy === 'lowest') {
+        return Number(a.dataset.rating) - Number(b.dataset.rating);
+      }
+      return 0;
+    });
+
+    // reset page to 1 when filters change
+    currentPage = 1;
+
+    // re-build grid with filtered cards (in-memory reorder)
+    grid.innerHTML = '';
+    if (cards.length === 0) {
+      noResults.style.display = '';
+    } else {
+      noResults.style.display = 'none';
+      cards.forEach(c => grid.appendChild(c));
+    }
+
+    // call paginate to show page and build pagination UI
+    paginateReviews();
+  }
+
+  // Pagination: hide all cards except those for current page, build page buttons
+  function paginateReviews() {
+    const cards = allCards();
+    const totalPages = Math.max(1, Math.ceil(cards.length / REVIEWS_PER_PAGE));
+
+    // clamp currentPage
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
+
+    // show/hide cards
+    cards.forEach((card, idx) => {
+      const start = (currentPage - 1) * REVIEWS_PER_PAGE;
+      const end = currentPage * REVIEWS_PER_PAGE;
+      card.style.display = (idx >= start && idx < end) ? 'flex' : 'none';
+    });
+
+    // build pagination buttons
+    paginationEl.innerHTML = '';
+    if (totalPages <= 1) return;
+
+    // Prev button
+    const prev = document.createElement('button');
+    prev.textContent = '‹';
+    prev.disabled = currentPage === 1;
+    prev.onclick = () => { if (currentPage > 1) { currentPage--; paginateReviews(); window.scrollTo({ top: grid.offsetTop - 100, behavior:'smooth' }); } };
+    paginationEl.appendChild(prev);
+
+    // page buttons (show limited window if many pages)
+    const windowSize = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(windowSize/2));
+    let endPage = Math.min(totalPages, startPage + windowSize - 1);
+    if (endPage - startPage < windowSize - 1) {
+      startPage = Math.max(1, endPage - windowSize + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      const btn = document.createElement('button');
+      btn.textContent = i;
+      if (i === currentPage) btn.classList.add('active');
+      btn.onclick = () => { currentPage = i; paginateReviews(); window.scrollTo({ top: grid.offsetTop - 100, behavior:'smooth' }); };
+      paginationEl.appendChild(btn);
+    }
+
+    // Next button
+    const next = document.createElement('button');
+    next.textContent = '›';
+    next.disabled = currentPage === totalPages;
+    next.onclick = () => { if (currentPage < totalPages) { currentPage++; paginateReviews(); window.scrollTo({ top: grid.offsetTop - 100, behavior:'smooth' }); } };
+    paginationEl.appendChild(next);
+  }
+
+  // Chip activation
+  chips.forEach(ch => {
+    ch.addEventListener('click', function() {
+      chips.forEach(x => x.classList.remove('active'));
+      this.classList.add('active');
+      applyFilters();
+    });
+  });
+
+  // wire search & sort
+  searchEl.addEventListener('input', () => applyFilters());
+  sortEl.addEventListener('change', () => applyFilters());
+
+  // helpful button behavior (delegated)
+  grid.addEventListener('click', function(e) {
+    const btn = e.target.closest('.helpful');
+    if (!btn) return;
+    btn.textContent = 'Marked ✓';
+    btn.disabled = true;
+  });
+
+  // Write review: open review form modal (not the auth overlay). Keep auth overlay intact (unchanged).
+  const writeReviewBtn = document.getElementById('writeReviewBtn');
+  const writeReviewModalEl = document.getElementById('writeReviewModal');
+  const writeReviewBS = new bootstrap.Modal(writeReviewModalEl, { backdrop: 'static', keyboard: false });
+
+  writeReviewBtn.addEventListener('click', function(){
+    // Show the review form modal
+    writeReviewBS.show();
+    // focus first input
+    setTimeout(() => document.getElementById('rvName')?.focus(), 150);
+  });
+
+  // Handle review form submit: append a new review-card to grid and re-run UI updates
+  const writeReviewForm = document.getElementById('writeReviewForm');
+  writeReviewForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('rvName').value.trim() || 'Anonymous';
+    const role = document.getElementById('rvRole').value.trim() || 'Student';
+    const rating = Number(document.getElementById('rvRating').value || 5);
+    const text = document.getElementById('rvText').value.trim();
+    const imgInput = document.getElementById('rvImage');
+
+    // create review element
+    const card = document.createElement('article');
+    card.className = 'review-card';
+    const today = new Date();
+    const isoDate = today.toISOString().split('T')[0];
+
+    // temporary placeholder for image; will be replaced if file provided
+    const avatarSrc = 'top1.webp';
+
+    card.setAttribute('data-name', name);
+    card.setAttribute('data-role', role);
+    card.setAttribute('data-rating', String(rating));
+    card.setAttribute('data-date', isoDate);
+    card.setAttribute('data-img', avatarSrc);
+    card.setAttribute('data-text', text);
+
+    card.innerHTML = `
+      <div class="review-avatar"><img src="${avatarSrc}" alt="${name}"></div>
+      <div class="review-body">
+        <div class="review-name">${escapeHtml(name)}</div>
+        <div class="review-meta"><span class="stars" aria-hidden="true"></span><span> • </span><small>${escapeHtml(role)}</small><span> • </span><small>${formatDateReadable(isoDate)}</small></div>
+        <div class="review-text">${escapeHtmlShort(text)}</div>
+        <div class="review-actions">
+          <button class="btn-inline read-more" data-bs-toggle="modal" data-bs-target="#reviewModal">Read more</button>
+          <button class="btn-inline helpful">Helpful</button>
+        </div>
+      </div>
+    `;
+
+    // If an image file provided, convert to data URL and replace avatar and data-img attribute
+    if (imgInput.files && imgInput.files[0]) {
+      const file = imgInput.files[0];
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        const dataUrl = ev.target.result;
+        card.setAttribute('data-img', dataUrl);
+        card.querySelector('.review-avatar img').src = dataUrl;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // append to the DOM (at the end)
+    grid.appendChild(card);
+
+    // re-render stars and refresh pagination/filter to include new review
+    renderStarsOnLoad();
+    // place the user on the last page so new review is visible
+    const totalPages = Math.max(1, Math.ceil(allCards().length / REVIEWS_PER_PAGE));
+    currentPage = totalPages;
+    paginateReviews();
+
+    // reset form and close modal
+    writeReviewForm.reset();
+    writeReviewBS.hide();
+
+    // small success feedback (disable submit briefly)
+    const submitBtn = document.getElementById('submitReviewBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitted';
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit review';
+    }, 1500);
+  });
+
+  // Modal population (read-more)
+  const reviewModal = document.getElementById('reviewModal');
+  if (reviewModal) {
+    reviewModal.addEventListener('show.bs.modal', function (event) {
+      const trigger = event.relatedTarget;
+      const card = trigger?.closest('.review-card');
+      if (!card) return;
+
+      document.getElementById('modalName').textContent = card.dataset.name || '';
+      document.getElementById('modalMeta').textContent = (card.dataset.role || '') + (card.dataset.date ? ' • ' + formatDateReadable(card.dataset.date) : '');
+      document.getElementById('modalImg').src = card.dataset.img || '';
+      document.getElementById('modalText').textContent = card.dataset.text || '';
+      renderStars(document.getElementById('modalRating'), card.dataset.rating || 0);
+    });
+  }
+
+  // Mobile dropdown / menu controls (kept from original)
+  document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileDropdown = document.getElementById('mobileDropdown');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+        mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+        mobileDropdown.classList.toggle('active');
+      });
+    }
+
+    mobileNavLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        mobileDropdown.classList.remove('active');
+        mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    const mobileCtas = document.querySelectorAll('.mobile-dropdown-cta');
+    mobileCtas.forEach(btn => {
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        const coursesEl = document.getElementById('courses');
+        if(coursesEl){
+          coursesEl.scrollIntoView({behavior:'smooth'});
+        } else {
+          window.location.href = 'project.html';
+        }
+        mobileDropdown.classList.remove('active');
+        mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!mobileDropdown.contains(e.target) && !mobileMenuBtn?.contains(e.target)) {
+        mobileDropdown.classList.remove('active');
+        mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && mobileDropdown.classList.contains('active')) {
+        mobileDropdown.classList.remove('active');
+        mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  // Accessibility & quick-close for auth overlay
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') {
+      const auth = document.getElementById('authOverlay');
+      if (auth && auth.style.display === 'flex') auth.style.display = 'none';
+    }
+  });
+
+  // small helpers
+  function formatDateReadable(iso) {
+    try {
+      return new Date(iso).toLocaleDateString(undefined, { year:'numeric', month:'short', day:'numeric' });
+    } catch (e) { return iso; }
+  }
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+  }
+  function escapeHtmlShort(str){
+    // keep small preview; but preserve safety
+    const s = escapeHtml(str || '');
+    return s.length > 280 ? s.slice(0, 277) + '...' : s;
+  }
+
+  // Initial rendering
+  renderStarsOnLoad();
+  applyFilters();
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Contact Us — BBC Engineering Consultancy Pvt. Ltd</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+/* ===== PAGE LAYOUT FIX (DESKTOP) ===== */
+.page-banner {
+  padding: 80px 20px;
+  color:#fff;
+  background-size:cover;
+  background-position:center;
+}
+
+.page-banner h2 {
+  font-family:Poppins,sans-serif;
+  font-size:52px;
+  font-weight:800;
+}
+
+.section-box {
+  background:rgba(255,255,255,0.95);
+  padding:40px;
+  border-radius:14px;
+  margin-top:-60px;
+  box-shadow:0 20px 50px rgba(0,0,0,.08);
+}
+
+/* ===== CONTACT GRID ===== */
+.contact-grid {
+  display:grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap:30px;
+}
+
+.contact-item {
+  display:flex;
+  gap:12px;
+  margin-bottom:14px;
+  font-size:14px;
+}
+
+/* ===== STAFF ===== */
+.staff-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap:22px;
+  margin-top:30px;
+}
+
+.staff-card {
+  background:#fff;
+  border-radius:14px;
+  padding:20px;
+  text-align:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.06);
+}
+
+.staff-card img {
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  margin-bottom:12px;
+}
+
+/* ===== FORM ===== */
+.request-form {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.request-form input,
+.request-form textarea {
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #dfe7fa;
+  font-size:14px;
+}
+
+.request-form textarea {
+  grid-column:1/-1;
+  resize:none;
+}
+
+@media(max-width:900px){
+  .contact-grid { grid-template-columns:1fr; }
+  .request-form { grid-template-columns:1fr; }
+  .section-box { margin-top:0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR (UNCHANGED) -->
+ <header class="site-nav" role="banner">
+            <div class="container nav-inner">
+                <!-- Left: Brand/Logo -->
+                <div style="display:flex;align-items:center;gap:14px">
+                    <div class="logo-mark" aria-hidden="true">BBC</div>
+                    <div class="brand">
+                        <div style="font-size:12px;color:#ffffff;margin-top:2px;font-weight:700">Engineering Consultantancy Pvt.Ltd.</div>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+              <nav class="primary" role="navigation" aria-label="primary">
+        <a href="index.html">Home</a>
+      <a href="project.html">Projects</a>
+      <a href="about_us.html">About us</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="contact_us.html">Contact Us</a>
+    </nav>
+
+                <!-- Right: CTA + Profile + Hamburger -->
+                <div class="nav-right">
+                    <!-- Desktop CTA Button -->
+                    <button class="btn-cta desktop-cta" onclick="document.getElementById('courses')?.scrollIntoView({behavior:'smooth'})">Browse Architecture</button>
+          
+                    <!-- Profile Button -->
+                    <button class="profile-btn" id="profileBtn" aria-label="Account">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 12c2.761 0 5-2.462 5-5.5S14.761 1 12 1 7 3.462 7 6.5 9.239 12 12 12Zm0 2c-4.418 0-8 2.239-8 5v2h16v-2c0-2.761-3.582-5-8-5Z"
+                                        fill="currentColor"/>
+                        </svg>
+                    </button>
+          
+                    <!-- Mobile Hamburger Menu -->
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+      
+            </div>
+             <div class="mobile-dropdown" id="mobileDropdown">
+                    <nav class="mobile-nav">
+                        <a href="index.html" class="mobile-nav-link">Home</a>
+                        <a href="project.html" class="mobile-nav-link">Courses</a>
+                        <a href="about_us.html" class="mobile-nav-link">about us</a>
+                        <a href="reviews.html" class="mobile-nav-link">Reviews</a>
+                        <a href="contact_us.html" class="mobile-nav-link">Contact Us</a>
+                        <button class="mobile-dropdown-cta" onclick="document.getElementById('courses')?.scrollIntoView({behavior:'smooth'})">Browse Architecture</button>
+                    </nav>
+                </div>
+        </header>
+
+<!-- HERO -->
+<section class="page-banner" style="background-image:linear-gradient(rgba(2,8,20,.6),rgba(2,8,20,.3)),url('teach1.avif')">
+  <div class="container text-center">
+    <h2>Contact Us</h2>
+    <p>Professional Building, Architecture & Valuation Consultancy</p>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="container">
+
+<div class="section-box">
+
+<!-- CONTACT + MAP -->
+<div class="contact-grid">
+
+<div>
+<h3 style="color:#015383;font-weight:800">Office Information</h3>
+
+<div class="contact-item">📍 Ward 5, Dhangadhi Sub-Metropolitan City</div>
+<div class="contact-item">Near North Gate of Dhangadhi Stadium</div>
+<div class="contact-item">✉️ bbcdhangadhi@gmail.com</div>
+<div class="contact-item">✉️ bhandari.krishna01@gmail.com</div>
+<div class="contact-item">📞 +977 9858422178</div>
+<div class="contact-item">☎️ 091-525169 / 091-521069</div>
+
+<h4 style="margin-top:24px;font-weight:700">Google Map</h4>
+<iframe
+  src="https://www.google.com/maps?q=Ward%205,%20Dhangadhi%20Sub-Metropolitan%20City,%20Kailali,%20Sudurpaschim%20Province,%20Nepal&output=embed"
+  width="100%"
+  height="260"
+  style="border:0;border-radius:12px"
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade">
+</iframe>
+
+</div>
+
+<!-- REQUEST FORM -->
+<div>
+<h3 style="color:#015383;font-weight:800">Valuation Request</h3>
+
+<form class="request-form">
+<input placeholder="Client Name" required>
+<input placeholder="Contact Number" required>
+<input placeholder="Address">
+<input placeholder="Property Owner Name">
+<input placeholder="Property Address">
+<input placeholder="Plot No">
+<input placeholder="Area of Plot">
+<textarea rows="4" placeholder="Additional Notes"></textarea>
+
+<button class="btn-primary" type="submit">Submit Request</button>
+</form>
+</div>
+
+</div>
+
+<!-- STAFF -->
+<h3 style="margin-top:50px;color:#015383;font-weight:800">Our Staff</h3>
+
+<div class="staff-grid">
+<div class="staff-card"><img src="aa.jpg"><h5>Er. Dhiraj Bhatta</h5><p>📞 9864750443</p></div>
+<div class="staff-card"><img src="ab.jpg"><h5>Er. Hari Chaudhary</h5><p>📞 9869702720</p></div>
+<div class="staff-card"><img src="ba.jpg"><h5>Mr. Ram Kathariya</h5><p>📞 9865531010</p></div>
+<div class="staff-card"><img src="bb.jpg"><h5>Mr. Lahanu Chaudhary</h5><p>📞 9848671239</p></div>
+<div class="staff-card"><img src="bc.jpg"><h5>Mr. Bijay Chaudhary</h5><p>📞 9863107689</p></div>
+</div>
+
+</div>
+</main>
+
+<!-- FOOTER (UNCHANGED) -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <!-- Left Column: Brand Info -->
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-mark">BBC</div>
+                    <h3>Engineering Consultantancy Pvt.Ltd</h3>
+                </div>
+                <p class="footer-tagline">Empowering learners with cutting-edge education</p>
+                <div class="footer-copyright">&copy; <strong>BBC</strong> — 2025 • All rights reserved</div>
+            </div>
+            
+            <!-- Right Column: Contact Info -->
+            <div class="footer-contact">
+                <h4>Contact Information</h4>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <p>Ward 5, Dhangadhi sub-metropolitan city</p>
+                        <p>Kailali, Sudurpaschim pradesh, Nepal</p>
+                        <p class="address-note">Near North Gate of Dhangadhi stadium</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div class="contact-details">
+                        <a href="mailto:bhandari.krishna01@gmail.com">bhandari.krishna01@gmail.com</a>
+                    </div>
+                </div> 
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div class="contact-details">
+                        <a href="tel:+9779858422178">+977 9858422178</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Social Media Column -->
+            <div class="footer-social">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon facebook">f</a>
+                    <a href="#" class="social-icon twitter">t</a>
+                    <a href="#" class="social-icon instagram">ig</a>
+                    <a href="#" class="social-icon linkedin">in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+ <script>
+        // Mobile Dropdown & Auth overlay (matches index behavior)
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileDropdown = document.getElementById('mobileDropdown');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+            const profileBtn = document.getElementById('profileBtn');
+            const authOverlay = document.getElementById('authOverlay');
+
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+                    mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+                    mobileDropdown.classList.toggle('active');
+                });
+            }
+
+            // Close dropdown when clicking on links
+            mobileNavLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileDropdown.classList.remove('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                });
+            });
+
+            // Profile button opens auth overlay
+            if (profileBtn && authOverlay) profileBtn.addEventListener('click', () => authOverlay.classList.add('active'));
+
+            // Close overlay when clicking outside
+            if (authOverlay) {
+                authOverlay.addEventListener('click', (e) => {
+                    if (e.target === authOverlay) authOverlay.classList.remove('active');
+                });
+            }
+
+            // Close dropdown on escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    if (mobileDropdown && mobileDropdown.classList.contains('active')) {
+                        mobileDropdown.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    }
+                    if (authOverlay && authOverlay.classList.contains('active')) authOverlay.classList.remove('active');
+                }
+            });
+        });
+      </script>
+</body>
+</html>
