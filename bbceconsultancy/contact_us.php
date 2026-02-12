@@ -254,58 +254,8 @@ require_once __DIR__ . '/config/config.php';
 <body>
 
 <!-- NAVBAR (UNCHANGED) -->
- <header class="site-nav" role="banner">
-            <div class="container nav-inner">
-                <!-- Left: Brand/Logo -->
-                <div style="display:flex;align-items:center;gap:14px">
-                    <div class="logo-mark" aria-hidden="true">BBC</div>
-                    <div class="brand">
-                        <div style="font-size:12px;color:#ffffff;margin-top:2px;font-weight:700">Engineering Consultantancy Pvt.Ltd.</div>
-                    </div>
-                </div>
+ <?php include __DIR__ . '/includes/navbar.php'; ?>
 
-                <!-- Desktop Navigation -->
-              <nav class="primary" role="navigation" aria-label="primary">
-        <a href="index.html">Home</a>
-      <a href="project.html">Projects</a>
-      <a href="about_us.html">About us</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="contact_us.html">Contact Us</a>
-    </nav>
-
-                <!-- Right: CTA + Profile + Hamburger -->
-                <div class="nav-right">
-                    <!-- Desktop CTA Button -->
-                    <button class="btn-cta desktop-cta" onclick="document.getElementById('courses')?.scrollIntoView({behavior:'smooth'})">Browse Architecture</button>
-          
-                    <!-- Profile Button -->
-                    <button class="profile-btn" id="profileBtn" aria-label="Account">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                            <path d="M12 12c2.761 0 5-2.462 5-5.5S14.761 1 12 1 7 3.462 7 6.5 9.239 12 12 12Zm0 2c-4.418 0-8 2.239-8 5v2h16v-2c0-2.761-3.582-5-8-5Z"
-                                        fill="currentColor"/>
-                        </svg>
-                    </button>
-          
-                    <!-- Mobile Hamburger Menu -->
-                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    </button>
-                </div>
-      
-            </div>
-             <div class="mobile-dropdown" id="mobileDropdown">
-                    <nav class="mobile-nav">
-                        <a href="index.html" class="mobile-nav-link">Home</a>
-                        <a href="project.html" class="mobile-nav-link">Courses</a>
-                        <a href="about_us.html" class="mobile-nav-link">about us</a>
-                        <a href="reviews.html" class="mobile-nav-link">Reviews</a>
-                        <a href="contact_us.html" class="mobile-nav-link">Contact Us</a>
-                        <button class="mobile-dropdown-cta" onclick="document.getElementById('courses')?.scrollIntoView({behavior:'smooth'})">Browse Architecture</button>
-                    </nav>
-                </div>
-        </header>
 
 <!-- HERO -->
 <section class="page-banner" style="background-image:linear-gradient(rgba(2,8,20,.6),rgba(2,8,20,.3)),url('teach1.avif')">
@@ -461,52 +411,7 @@ $result = $conn->query("SELECT * FROM staff ORDER BY created_at DESC");
 </div>
 
  <script>
-        // Mobile Dropdown & Auth overlay (matches index behavior)
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const mobileDropdown = document.getElementById('mobileDropdown');
-            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-            const profileBtn = document.getElementById('profileBtn');
-            const authOverlay = document.getElementById('authOverlay');
-
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
-                    mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
-                    mobileDropdown.classList.toggle('active');
-                });
-            }
-
-            // Close dropdown when clicking on links
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileDropdown.classList.remove('active');
-                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                });
-            });
-
-            // Profile button opens auth overlay
-            if (profileBtn && authOverlay) profileBtn.addEventListener('click', () => authOverlay.classList.add('active'));
-
-            // Close overlay when clicking outside
-            if (authOverlay) {
-                authOverlay.addEventListener('click', (e) => {
-                    if (e.target === authOverlay) authOverlay.classList.remove('active');
-                });
-            }
-
-            // Close dropdown on escape
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    if (mobileDropdown && mobileDropdown.classList.contains('active')) {
-                        mobileDropdown.classList.remove('active');
-                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
-                    }
-                    if (authOverlay && authOverlay.classList.contains('active')) authOverlay.classList.remove('active');
-                }
-            });
-        });
+ 
 
         // Toast Logic
 (function(){

@@ -24,15 +24,10 @@
     <!-- Right: CTA + Profile + Hamburger -->
     <div class="nav-right">
       <!-- Desktop CTA Button -->
-      <button class="btn-cta desktop-cta" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Browse Architecture</button>
+      <a href="project.php" class="btn-cta desktop-cta" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Browse Architecture</a>
       
       <!-- Profile Button -->
-      <button class="profile-btn" id="profileBtn" aria-label="Account">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M12 12c2.761 0 5-2.462 5-5.5S14.761 1 12 1 7 3.462 7 6.5 9.239 12 12 12Zm0 2c-4.418 0-8 2.239-8 5v2h16v-2c0-2.761-3.582-5-8-5Z"
-                fill="currentColor"/>
-        </svg>
-      </button>
+  
       
       <!-- Mobile Hamburger Menu -->
       <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu" aria-expanded="false">
@@ -52,7 +47,7 @@
         <a href="about_us.php" class="mobile-nav-link">about us</a>
         <a href="reviews.php" class="mobile-nav-link">Reviews</a>
         <a href="contact_us.php" class="mobile-nav-link">Contact Us</a>
-        <button class="mobile-dropdown-cta" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Browse Architecture</button>
+        <a href="project.php"class="mobile-dropdown-cta" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Browse Architecture</a>
       </nav>
     </div>
     <script>

@@ -141,199 +141,402 @@ $company_phone = '+977 9858422178';
     .category-tab { padding:10px 14px; border-radius:999px; background:rgba(255,255,255,0.9); box-shadow:0 6px 14px rgba(2,8,20,.04); cursor:pointer; font-weight:700; color:#043856; }
     .category-tab.active { background:linear-gradient(90deg,#58f2d1,#7a8bff); color:#022032; box-shadow:0 22px 40px rgba(122,139,255,.16); transform:translateY(-2px); }
 
-    /* ========== Modal styles ========== */
- /* ===========================
-   SERVICE MODAL — CLEAN VERSION
-=========================== */
+    /* ========== MODAL — PROFESSIONAL, CLEAN, THEME-ALIGNED ========== */
+    .svc-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 12000;
+      background: rgba(2, 20, 40, 0.75);
+      backdrop-filter: blur(8px);
+      padding: 24px;
+    }
 
-.svc-modal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 12000;
-  background: rgba(10, 20, 35, 0.65);
-  backdrop-filter: blur(6px);
-  padding: 20px;
+    .svc-modal.active {
+      display: flex;
+    }
+
+    .svc-card {
+      width: 100%;
+      max-width: 1100px;
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 40px 80px -12px rgba(0,0,0,0.35), 0 18px 36px -18px rgba(0,0,0,0.2);
+      animation: modalSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    @keyframes modalSlideIn {
+      from { opacity: 0.8; transform: scale(0.98) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* ----- HEADER ----- */
+    .svc-header {
+      padding: 20px 28px;
+      background: linear-gradient(98deg, #e6f2ff, #dceeff);
+      border-bottom: 1px solid rgba(2, 20, 40, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* override inline style for icon container */
+    .svc-header div[style*="display:flex"] {
+      /* width: 54px !important; */
+      height: 54px !important;
+      /* background: rgba(255,255,255,0.9) !important; */
+      border-radius: 16px !important;
+      /* box-shadow: 0 6px 18px rgba(0,108,255,0.12) !important; */
+      color: #021428;
+      font-size: 24px;
+    }
+
+    .svc-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.2;
+      color: #021428;
+      margin-bottom: 4px;
+    }
+
+    #svcCategory {
+      font-size: 14px !important;
+      font-weight: 600;
+      color: #2c4b66 !important;
+      background: rgba(44,75,102,0.06);
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+      margin-top: 6px !important;
+    }
+
+    /* close button */
+    #svcCloseBtn {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: none;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: blur(4px);
+      color: #1e3b5a;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(2,8,20,0.04);
+    }
+    #svcCloseBtn:hover {
+      background: white;
+      color: #021428;
+      box-shadow: 0 10px 22px rgba(2,108,255,0.16);
+      transform: scale(0.96);
+    }
+    #svcCloseBtn i {
+      font-size: 20px;
+    }
+
+    /* ----- BODY (GRID) ----- */
+    .svc-body {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 28px;
+      padding: 28px;
+      background: #ffffff;
+    }
+
+    /* left column */
+    .svc-left {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .svc-image {
+      width: 100%;
+      height: 280px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #f0f6fd;
+      box-shadow: 0 8px 22px rgba(2,20,40,0.06);
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .svc-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .svc-image:hover img {
+      transform: scale(1.02);
+    }
+
+    /* description area */
+    .svc-desc {
+      margin-top: 22px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1f384e;
+      background: #fafcff;
+      padding: 20px;
+      border-radius: 18px;
+      border-left: 5px solid #5f9ef0;
+      font-weight: 450;
+    }
+
+    /* ----- RIGHT PANEL (aside) ----- */
+    .svc-right {
+      background: #f8fcff;
+      border-radius: 24px;
+      padding: 26px 20px;
+      border: 1px solid rgba(100,140,200,0.12);
+      box-shadow: inset 0 1px 4px rgba(255,255,255,0.8), 0 8px 18px rgba(2,40,80,0.04);
+    }
+
+    .svc-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 16px 0;
+      border-bottom: 1px solid rgba(2,20,40,0.06);
+    }
+    .svc-meta:last-of-type {
+      border-bottom: none;
+    }
+
+    .svc-meta .label {
+      font-size: 15px;
+      font-weight: 600;
+      color: #2f5670;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .svc-meta .label i {
+      width: 20px;
+      color: #3d7eb9;
+      font-size: 16px;
+    }
+
+    .svc-meta .value {
+      font-weight: 700;
+      color: #021428;
+      background: white;
+      padding: 6px 14px;
+      border-radius: 60px;
+      font-size: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      max-width: 180px;
+      text-align: right;
+      word-break: break-word;
+    }
+    .svc-meta .value a {
+      color: #021428;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .svc-meta .value a:hover {
+      text-decoration: underline;
+      color: #0b4b7a;
+    }
+
+    /* ----- ACTION BUTTONS (right panel) ----- */
+    .svc-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    /* button styles within modal */
+    .svc-modal .btn-ghost,
+    .svc-modal .btn-primary {
+      flex: 1 1 auto;
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: 0.16s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+
+    .svc-modal .btn-ghost {
+      background: white;
+      border: 1.5px solid #e1ecf5;
+      color: #1e3f5c;
+    }
+    .svc-modal .btn-ghost:hover {
+      background: #f2f9ff;
+      border-color: #98b9d6;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(66,153,225,0.12);
+    }
+
+    .svc-modal .btn-primary {
+      background: linear-gradient(105deg, #00c6ff, #5f7eff);
+      color: #021428;
+      border: none;
+      font-weight: 800;
+    }
+    .svc-modal .btn-primary:hover {
+      background: linear-gradient(105deg, #0099ff, #4c6ef0);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 28px rgba(79,131,255,0.28);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .svc-body {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .svc-image {
+        height: 240px;
+      }
+      .svc-card {
+        max-width: 92vw;
+      }
+      .svc-header {
+        padding: 18px 22px;
+      }
+      .svc-title {
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .svc-modal { padding: 16px; }
+      .svc-body { padding: 20px; }
+      .svc-image { height: 190px; }
+      .svc-desc { padding: 16px; font-size: 15px; }
+      .svc-right { padding: 20px 16px; }
+      .svc-meta .value { max-width: 140px; }
+      .svc-actions { flex-direction: column; }
+    }
+
+    /* --------------------
+   Mobile-friendly modal patch for .svc-card
+   Add this at the end of your stylesheet
+   -------------------- */
+
+/* Make modal limited by viewport and scrollable on small devices */
+.svc-card {
+  width: 100%;
+  max-width: 1100px;                /* keep desktop cap */
+  max-height: calc(100vh - 48px);   /* leave breathing room for status bar */
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 40px 80px -12px rgba(0,0,0,0.35), 0 18px 36px -18px rgba(0,0,0,0.2);
+  animation: modalSlideIn 0.3s cubic-bezier(0.16,1,0.3,1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ensure inner content can scroll when modal exceeds viewport */
+.svc-card .svc-body,
+.svc-card > * {
+  -webkit-overflow-scrolling: touch;
 }
 
 .svc-modal.active {
-  display: flex;
-}
-
-.svc-card {
-  width: 100%;
-  max-width: 1000px;
-  background: #ffffff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 50px 120px rgba(0, 0, 0, 0.25);
-  animation: modalIn .25s ease;
-  display: flex;
-  flex-direction: column;
-}
-
-@keyframes modalIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Header */
-.svc-header {
-  padding: 20px 24px;
-  background: linear-gradient(90deg,#00c6ff,#7f7fff);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.svc-header-left {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.svc-header-icon {
-  width: 50px;
-  height: 50px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.3);
-  display: flex;
+  /* allow body-level scrolling inside modal when modal content is tall */
   align-items: center;
   justify-content: center;
-  font-size: 22px;
-  color: #021428;
+  padding: 12px;
 }
 
-.svc-title {
-  font-family: Poppins, sans-serif;
-  font-size: 20px;
-  font-weight: 800;
-  color: #021428;
-}
-
-.svc-category {
-  font-size: 13px;
-  color: #102a43;
-  margin-top: 4px;
-}
-
-.svc-close {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  border: none;
-  background: rgba(255,255,255,0.9);
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-/* Body Layout */
-.svc-body {
-  display: grid;
-  grid-template-columns: 1fr 350px;
-  gap: 30px;
-  padding: 28px;
-}
-
-/* Image */
-.svc-image {
-  width: 100%;
-  height: 300px;
-  border-radius: 14px;
-  overflow: hidden;
-  background: #f4f8ff;
-}
-
-.svc-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Description */
-.svc-description {
-  margin-top: 20px;
-  line-height: 1.6;
-  color: #1f3a47;
-}
-
-/* Info Panel */
-.svc-info {
-  background: #f7faff;
-  border-radius: 14px;
-  padding: 20px;
-}
-
-.svc-info-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 14px;
-  font-size: 14px;
-}
-
-.svc-info-label {
-  color: #64748b;
-  font-weight: 600;
-}
-
-.svc-info-value {
-  color: #021428;
-  font-weight: 700;
-  text-align: right;
-}
-
-/* CTA Buttons */
-.svc-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.svc-btn {
-  flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  font-weight: 700;
-  border: none;
-  cursor: pointer;
-}
-
-.svc-btn-light {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-}
-
-.svc-btn-primary {
-  background: linear-gradient(90deg,#00D4FF,#635BFF);
-  color: #021428;
-}
-
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .svc-body {
-    grid-template-columns: 1fr;
-  }
-
-  .svc-image {
-    height: 220px;
-  }
-}
-
-@media (max-width: 480px) {
+/* Small / medium phones: stack layout and make things tappable */
+@media (max-width: 720px) {
   .svc-card {
-    border-radius: 12px;
+    max-width: 100%;
+    border-radius: 18px;
+    max-height: calc(100vh - 24px);
   }
 
+  /* header adjustments */
+  .svc-header {
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .svc-title { font-size: 18px; margin-bottom: 0; }
+  #svcCategory { font-size: 13px; padding: 3px 12px; }
+
+  /* place close button in top-right inside header for easier reach */
+  #svcCloseBtn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    z-index: 3;
+  }
+
+  /* Stack main + aside vertically */
   .svc-body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
     padding: 18px;
   }
 
-  .svc-image {
-    height: 180px;
+  .svc-image { height: 190px; border-radius: 14px; }
+  .svc-desc { margin-top: 12px; padding: 14px; font-size: 15px; border-radius: 14px; }
+
+  /* make right panel full width under left block */
+  .svc-right {
+    width: 100%;
+    padding: 18px 14px;
+    border-radius: 14px;
   }
+
+  .svc-meta { padding: 12px 0; }
+  .svc-meta .value { max-width: 160px; font-size: 14px; padding: 8px 12px; }
+
+  /* actions take full width stacked */
+  .svc-actions { flex-direction: column; gap: 12px; margin-top: 18px; }
+  .svc-modal .btn-ghost,
+  .svc-modal .btn-primary { width: 100%; padding: 12px 14px; border-radius: 12px; }
+
+  /* ensure modal content scrolls internally rather than pushing viewport */
+  .svc-card { overflow: hidden; }
+  .svc-card > .svc-body { overflow-y: auto; max-height: calc(100vh - 180px); padding-right: 6px; }
+}
+
+/* Very small phones */
+@media (max-width: 400px) {
+  .svc-header { padding: 12px 12px; }
+  .svc-title { font-size: 16px; }
+  .svc-image { height: 150px; }
+  .svc-desc { font-size: 14px; padding: 12px; }
+  .svc-meta .value { max-width: 130px; font-size: 13px; padding: 7px 10px; }
+  .svc-card { border-radius: 12px; }
+  #svcCloseBtn { right: 8px; top: 8px; width: 40px; height: 40px; border-radius: 10px; }
+}
+
+/* Accessibility: ensure focusable controls remain visible */
+.svc-card :focus {
+  outline: 3px solid rgba(90,160,255,0.14);
+  outline-offset: 2px;
 }
 
   </style>

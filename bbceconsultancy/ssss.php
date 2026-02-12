@@ -1,3 +1,13 @@
+this is my index.php page 
+what to do 
+1.find the product/project/services section and make it dynamic 
+2.dont messup the design 
+3. add a same modal like project.php
+4.dont change anything 
+6>give me the full fixed code take your time the code can be long and big no problem 
+
+C:\xampp\htdocs\civil-consultancy-real-estate-services\bbceconsultancy\index.php
+
 <!doctype html>
 <html lang="en">
 <head>
