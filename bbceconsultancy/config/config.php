@@ -2,9 +2,9 @@
 // config/config.php
 
 $db_host = "localhost";
-$db_user = "root";
-$db_pass = "";
-$db_name = "bbceconsultancy";
+$db_user = "u681343650_bbceconsultancy";
+$db_pass = "Bbceconsultancy@2026";
+$db_name = "u681343650_bbceconsultancy";
 
 /* ======================
    SESSION (30 DAYS)
